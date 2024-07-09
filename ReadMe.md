@@ -7,6 +7,7 @@ database: see database.txt
 ===========================================================================================================================================
 
 Entity Relationship
+![ER](https://github.com/wenbo2978/StaffTrainingSystem/assets/161510538/fae45005-30fb-4d08-977a-a9e7a36263df)
 
 File Structure
 
