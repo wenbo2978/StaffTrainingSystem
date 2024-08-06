@@ -5,6 +5,7 @@ import com.bysj.staff_training.domain.ResultInfo;
 import com.bysj.staff_training.pojo.User;
 import com.bysj.staff_training.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +27,8 @@ public class UserAction {
     @Autowired
     UserService userService;
 
+    @Value("${file.upload-dir}")
+    private String uploadDir;
 
     //login
     @RequestMapping("/user_login")
@@ -85,40 +88,40 @@ public class UserAction {
 
 
 
-        System.out.println(file);
+        System.out.println("file: "+file);
 
-        String url="";
-        String picurl="";
         String str = "";
 
         if(!file.isEmpty()){
 
-            String filePath="/uploadimg/";
-            //System.out.println("file path:");
+            try{
 
-            String fileName=file.getOriginalFilename();
-            picurl=fileName;
-            url = filePath;
-            file.transferTo(new File(url));
-            System.out.println("end");
+                System.out.println("start upload image");
+                String fileName=file.getOriginalFilename();
+                file.transferTo(new File( uploadDir+"/uploadImg/" + fileName));
+                System.out.println("end");
 
-            String realname=request.getParameter("realname");
-            String phone=request.getParameter("phone");
-            String email=request.getParameter("email");
-            System.out.println("realname:" + realname + ",Phone:" + phone + ",Email:" + email + ",Pic_url:" + picurl);
+                String realname=request.getParameter("realname");
+                String phone=request.getParameter("phone");
+                String email=request.getParameter("email");
+                System.out.println("realname:" + realname + ",Phone:" + phone + ",Email:" + email + ",Pic_url:" + fileName);
 
-            User newuser = new User();
-            newuser.setUserid(user.getUserid());
-            newuser.setUsername(user.getUsername());
-            newuser.setRealname(realname);
-            newuser.setPhone(phone);
-            newuser.setEmail(email);
-            newuser.setPicture(picurl);
-            newuser.setAuthority(user.getAuthority());
-            //System.out.println("username:" + newuser.getUsername() + ",Authority:" + newuser.getAuthority() + ",Email:" + newuser.getPassword());
-            userService.updateStaffInfo(newuser);
-            request.getSession().setAttribute("user", newuser);
-            str="success";
+                User newuser = new User();
+                newuser.setUserid(user.getUserid());
+                newuser.setUsername(user.getUsername());
+                newuser.setRealname(realname);
+                newuser.setPhone(phone);
+                newuser.setEmail(email);
+                newuser.setPicture(fileName);
+                newuser.setAuthority(user.getAuthority());
+                //System.out.println("username:" + newuser.getUsername() + ",Authority:" + newuser.getAuthority() + ",Email:" + newuser.getPassword());
+                userService.updateStaffInfo(newuser);
+                request.getSession().setAttribute("user", newuser);
+                str="success";
+            }catch (IOException e){
+                System.out.println("errorInfo: " + e.toString());
+                str = e.toString();
+            }
         }
         else {
             str="fail";
