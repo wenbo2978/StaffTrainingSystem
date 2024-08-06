@@ -138,7 +138,7 @@
       phone = #{phone,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
       picture = #{picture,jdbcType=VARCHAR}
-    where username = #{username,jdbcType=VARCHAR} and authority='普通员工'
+    where username = #{username,jdbcType=VARCHAR}
   </update>
 
   <update id="updateRsbInfo" parameterType="com.bysj.staff_training.pojo.User">
@@ -170,8 +170,10 @@
 
 
   <insert id="addUser" parameterType="com.bysj.staff_training.pojo.User">
-    insert into user(username,password,realname,authority)
-    values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR}, #{authority,jdbcType=VARCHAR})
+    insert into user(username,password,realname,authority, picture)
+    values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+    #{realname,jdbcType=VARCHAR}, #{authority,jdbcType=VARCHAR},
+    #{picture,jdbcType=VARCHAR})
   </insert>
 
   <select id="findUserById" parameterType="java.lang.Integer" resultType="com.bysj.staff_training.pojo.User">
