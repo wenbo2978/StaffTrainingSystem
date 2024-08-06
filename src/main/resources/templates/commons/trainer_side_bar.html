@@ -49,7 +49,7 @@
         </li>
         <li class="nav-item dropdown ml-auto">
             <a id="userInfo" href="http://example.com" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">
-                <img th:src="${session.user.getPicture()}" alt="img" style="max-width: 3.5rem;max-height: 3.5rem"  class="img-fluid rounded-circle shadow"></a>
+                <img th:src="'/uploadimg/' + ${session.user.getPicture()}" alt="img" style="max-width: 3.5rem;max-height: 3.5rem"  class="img-fluid rounded-circle shadow"></a>
             <div aria-labelledby="userInfo" class="dropdown-menu">
                 <a href="#" class="dropdown-item">
                     <strong class="d-block text-uppercase headings-font-family" th:text="${session.user.getRealname()}"></strong>
