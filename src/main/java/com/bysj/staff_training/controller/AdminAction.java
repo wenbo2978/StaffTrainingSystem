@@ -28,6 +28,7 @@ public class AdminAction {
     @ResponseBody
     public int addUser(HttpServletRequest request, HttpServletResponse response, User user){
         System.out.println("add user");
+        user.setPicture("images.jpeg");
         return userService.addUser(user);
     }
 
