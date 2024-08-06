@@ -110,7 +110,7 @@ public class UserServiceImpl implements UserService{
 
             }else if(u.getAuthority().equals("Administrator")){
                 //go to administrator's page
-                info.setAuthority("/admin_index.html");
+                info.setAuthority("/userList.html");
             }
         }else {
             System.out.println("error");
